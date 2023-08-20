@@ -12,22 +12,28 @@ import spring_hibernate_app.hibernateApp.model.Person;
  */
 public class App 
 {
-    public static void main( String[] args )
+    @SuppressWarnings("deprecation")
+	public static void main( String[] args )
     {
         Configuration configuration = new Configuration().addAnnotatedClass(Person.class);
         
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
-        session.beginTransaction();
-        
-        Person person = session.get(Person.class, 1);
-        
-        System.out.println(person.getName());
-        System.out.println(person.getAge());
-        
-        session.getTransaction().commit();
-        
-        sessionFactory.close();
+       try {
+    	   session.beginTransaction();
+    	   
+    	   Person person1 = new Person("Test1", 31);
+    	   Person person2 = new Person("Test2", 40);
+    	   Person person3 = new Person("Test3", 50);
+    	   
+    	   session.save(person1);
+    	   session.save(person2);
+    	   session.save(person3);
+    	   
+    	   session.getTransaction().commit();
+       } finally {
+    	   sessionFactory.close();
+       }
     }
 }
