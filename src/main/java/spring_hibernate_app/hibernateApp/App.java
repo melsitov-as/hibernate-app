@@ -23,15 +23,20 @@ public class App
        try {
     	   session.beginTransaction();
     	   
-    	   Person person1 = new Person("Test1", 31);
-    	   Person person2 = new Person("Test2", 40);
-    	   Person person3 = new Person("Test3", 50);
+    	    // получить человека из бд с id=2
+//    	   Person person = session.get(Person.class, 2);
+//    	   Person person2 = session.get(Person.class, 3);
+//    	   person.setName("New name");
+//    	   session.delete(person2);
     	   
-    	   session.save(person1);
-    	   session.save(person2);
+    	   // получить id при сохранении и например куда-то в другое место его отправить или сохранить
+    	   Person person3 = new Person("Some name", 60);
     	   session.save(person3);
+    
     	   
     	   session.getTransaction().commit();
+    	   
+    	   System.out.println(person3.getId());
        } finally {
     	   sessionFactory.close();
        }
