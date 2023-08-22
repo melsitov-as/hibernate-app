@@ -34,8 +34,8 @@ public class App
     	   person.setItems(new ArrayList<>(Collections.singletonList(item)));
     	   
     	   // методы save и persist похожи
-    	   // методы persist чтобы каскадирование при сохранении работало 
-    	   session.persist(person);
+    	   // методы persist чтобы каскадирование при сохранении работало  
+    	   session.save(person);
     	   
     	   session.getTransaction().commit();
     	   
