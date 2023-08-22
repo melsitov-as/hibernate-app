@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,6 +30,11 @@ public class Person {
 	
 	@Column(name = "age")
 	private int age;
+	
+	@SuppressWarnings("deprecation")
+	@OneToOne(mappedBy = "person")
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	private Passport passport;
 	
 	// указываем название того поля, в котором уже есть информация о нашей связи между сущностями
 	// у OneToMany есть аргумент cascade и в этом аргументе мы указываем те операции,
@@ -78,6 +84,16 @@ public class Person {
 		this.items = items;
 	}
 	
+	
+	public Passport getPassport() {
+		return passport;
+	}
+
+	public void setPassport(Passport passport) {
+		this.passport = passport;
+		passport.setPerson(this);
+	}
+
 	public void addItem(Item item) {
 		if (this.items == null) {
 			this.items = new ArrayList<>();
@@ -87,6 +103,8 @@ public class Person {
 		item.setOwner(this);
 	}
 
+	
+	
 	@Override
 	public String toString() {
 		return "Person [id=" + id + ", name=" + name + ", age=" + age + "]";
