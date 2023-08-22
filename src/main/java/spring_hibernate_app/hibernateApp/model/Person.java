@@ -2,6 +2,7 @@ package spring_hibernate_app.hibernateApp.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +28,9 @@ public class Person {
 	private int age;
 	
 	// указываем название того поля, в котором уже есть информация о нашей связи между сущностями
-	@OneToMany(mappedBy="owner")
+	// у OneToMany есть аргумент cascade и в этом аргументе мы указываем те операции,
+	// которые будут каскадироваться 
+	@OneToMany(mappedBy="owner", cascade=CascadeType.PERSIST)
 	private List<Item> items;
 
 	public Person() {
