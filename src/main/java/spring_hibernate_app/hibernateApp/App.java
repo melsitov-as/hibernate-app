@@ -90,7 +90,7 @@ public class App
     	   session.getTransaction().commit();
     	   
     	   
-    	   
+    	   // для коммита
     	   
     	   
        } finally {
